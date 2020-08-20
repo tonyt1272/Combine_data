@@ -94,8 +94,14 @@ def get_combine(year=1987, to_file=False):
 
         if to_file:
             file_name = f'nfl_combine_{year}'
-            file_path = data_path_combine(file_name)
-            data_df.to_csv(file_path, index=False)
+            try:
+                file_path = data_path_combine(file_name)
+                data_df.to_csv(file_path, index=False)
+            except FileNotFoundError:
+                file_path = f'{file_name}'
+                data_df.to_csv(file_path, index=False)
+
+            # data_df.to_csv(file_path, index=False)
 
             # sleep(human_scan_time)  # sleep(seconds)
 
@@ -223,7 +229,12 @@ def switch_name_lnf(name):
 
 def get_data(year_int=1987, to_file=True):
     data_year = str(year_int)
-    df_combine = pd.read_csv(data_path(f'combine\\nfl_combine_{data_year}'))
+
+    try:
+        df_combine = pd.read_csv(data_path(f'combine\\nfl_combine_{data_year}'))
+    except FileNotFoundError:
+        df_combine = pd.read_csv(f'nfl_combine_{data_year}')
+
     df_combine['Name'] = df_combine.apply(switch_name_lnf, axis=1)
     df_combine.drop('player_id', axis=1, inplace=True)
     df_combine.drop('Year', axis=1, inplace=True)
@@ -257,8 +268,12 @@ def get_data(year_int=1987, to_file=True):
 
     if to_file:
         file_name = f'nfl_combine_{data_year}_merged_draft'
-        file_path = data_path_merged(file_name)
-        df3.to_csv(file_path, index=False)
+        try:
+            file_path = data_path_merged(file_name)
+            df3.to_csv(file_path, index=False)
+        except FileNotFoundError:
+            file_path = f'{file_name}'
+            df3.to_csv(file_path, index=False)
 
     return df3
 
@@ -277,15 +292,16 @@ def next_group():
 
 if __name__ == '__main__':
 
-    df = get_combine(2020, to_file=False)   # run this before get_data().  Adjust data_path() functions as required
+    df = get_combine(1988, to_file=True)   # run this before get_data().  Adjust data_path() functions as required
+    #                                         otherwise files write to current working directory
     # for year in range(1987, 2021):    # get it all at once
     #     get_combine(year, to_file=False)
     #     print(f'{year} saved successfully')
 
-    # df = get_data(1988, to_file=False)  # requires combine files to be present in the combine data folder.
+    df = get_data(1988, to_file=True)  # requires combine files to be present in the combine data folder.
     # for year in range(1987, 2021):
     #     get_data(year, to_file=True)
-    # a = next_group()
+    a = next_group()
     # next(a)  # returns the next 50 player's combine results
 
 
