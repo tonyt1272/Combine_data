@@ -276,15 +276,16 @@ def next_group():
 
 
 if __name__ == '__main__':
-    # df = get_combine(2020, to_file=False)
+
+    df = get_combine(2020, to_file=False)   # run this before get_data().  Adjust data functions as required
     # for year in range(1987, 2021):
     #     get_combine(year, to_file=False)
-    #     print(f'{year} save successfully')
+    #     print(f'{year} saved successfully')
 
-    df = get_data(1988, to_file=False)
+    # df = get_data(1988, to_file=False)  # requires combine files to be present in the combine data folder.
     # for year in range(1987, 2021):
     #     get_data(year, to_file=True)
-    a = next_group()
+    # a = next_group()
     # next(a)  # returns the next 50 player's combine results
 
 
