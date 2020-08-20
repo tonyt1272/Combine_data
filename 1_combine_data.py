@@ -277,8 +277,8 @@ def next_group():
 
 if __name__ == '__main__':
 
-    df = get_combine(2020, to_file=False)   # run this before get_data().  Adjust data functions as required
-    # for year in range(1987, 2021):
+    df = get_combine(2020, to_file=False)   # run this before get_data().  Adjust data_path() functions as required
+    # for year in range(1987, 2021):    # get it all at once
     #     get_combine(year, to_file=False)
     #     print(f'{year} saved successfully')
 
