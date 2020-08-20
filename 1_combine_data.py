@@ -226,6 +226,8 @@ def switch_name_lnf(name):
 def get_data(year_int=1987, to_file=True):
     data_year = str(year_int)
 
+    get_combine(data_year, to_file=True)
+
     try:
         df_combine = pd.read_csv(data_path(f'combine\\nfl_combine_{data_year}'))
     except FileNotFoundError:
@@ -288,17 +290,14 @@ def next_group():
 
 if __name__ == '__main__':
 
-    df = get_combine(1988, to_file=True)   # run this before get_data().
+    # df = get_combine(1988, to_file=False)   # get just the combine data
     #
     # for year in range(1987, 2021):    # get it all at once
     #     get_combine(year, to_file=False)
     #     print(f'{year} saved successfully')
 
-    df = get_data(1988, to_file=True)  # requires combine files to be present in cwd or directory -> data_path_combine()
+    df = get_data(1987, to_file=False)  # get combine and draft position (if drafted) and games in NFL
     # for year in range(1987, 2021):
     #     get_data(year, to_file=True)
     a = next_group()
     # next(a)  # returns the next 50 player's combine results
-
-
-
