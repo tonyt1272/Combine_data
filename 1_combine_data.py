@@ -75,7 +75,7 @@ def get_combine(year=1987, to_file=False):
                 table_data2_str_lst[i] = item
 
             if '<a href' in item:
-                print(item)
+                # print(item)
                 valid = pattern.findall(item)
                 table_data2_str_lst[i] = item.replace(valid[0], '').strip()
                 table_data2_str_lst[i] = table_data2_str_lst[i].replace('</a>', '').strip()
