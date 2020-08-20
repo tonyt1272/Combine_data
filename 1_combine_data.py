@@ -107,7 +107,7 @@ def get_combine(year=1987, to_file=False):
     return data_df
 
 
-def get_player_urls(year=1987):
+def get_player_draft(year=1987):
     """
     Scraping with requests_html
 
@@ -227,7 +227,7 @@ def get_data(year_int=1987, to_file=True):
     df_combine['Name'] = df_combine.apply(switch_name_lnf, axis=1)
     df_combine.drop('player_id', axis=1, inplace=True)
     df_combine.drop('Year', axis=1, inplace=True)
-    players, columns = get_player_urls(year=year_int)
+    players, columns = get_player_draft(year=year_int)
     df = pd.DataFrame(data=players, columns=columns)
     df['Name'] = df.apply(switch_name_lnf, axis=1)
 
