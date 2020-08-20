@@ -101,10 +101,6 @@ def get_combine(year=1987, to_file=False):
                 file_path = f'{file_name}'
                 data_df.to_csv(file_path, index=False)
 
-            # data_df.to_csv(file_path, index=False)
-
-            # sleep(human_scan_time)  # sleep(seconds)
-
     except IndexError:
         print(f'Load failed{year_str}')
 
@@ -292,13 +288,13 @@ def next_group():
 
 if __name__ == '__main__':
 
-    df = get_combine(1988, to_file=True)   # run this before get_data().  Adjust data_path() functions as required
-    #                                         otherwise files write to current working directory
+    df = get_combine(1988, to_file=True)   # run this before get_data().
+    #
     # for year in range(1987, 2021):    # get it all at once
     #     get_combine(year, to_file=False)
     #     print(f'{year} saved successfully')
 
-    df = get_data(1988, to_file=True)  # requires combine files to be present in the combine data folder.
+    df = get_data(1988, to_file=True)  # requires combine files to be present in cwd or directory -> data_path_combine()
     # for year in range(1987, 2021):
     #     get_data(year, to_file=True)
     a = next_group()
