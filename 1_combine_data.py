@@ -290,14 +290,15 @@ def next_group():
 
 if __name__ == '__main__':
 
-    # df = get_combine(1988, to_file=False)   # get just the combine data
+    # df = get_combine(1988, to_file=False)   # get just the combine data, one year
     #
-    # for year in range(1987, 2021):    # get it all at once
+    # for year in range(1987, 2021):    # get all years at once
     #     get_combine(year, to_file=False)
     #     print(f'{year} saved successfully')
 
-    df = get_data(1987, to_file=False)  # get combine and draft position (if drafted) and games in NFL
-    # for year in range(1987, 2021):
+    df = get_data(1987, to_file=False)  # get combine and draft position (if drafted) and games in NFL, one year
+    #
+    # for year in range(1987, 2021):    # get all years at once
     #     get_data(year, to_file=True)
     a = next_group()
     # next(a)  # returns the next 50 player's combine results
