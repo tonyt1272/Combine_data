@@ -42,7 +42,10 @@ def get_combine(year=1987, to_file=False):
                      'Bench press', 'Vert leap', 'Broad jump', 'Shuttle', '3Cone']
     """
     # scraping with Selenium
-    driver = webdriver.Chrome(data_path('chromedriver.exe'))
+    try:
+        driver = webdriver.Chrome(data_path('chromedriver.exe'))
+    except:
+        driver = webdriver.Chrome('chromedriver.exe')
     driver.implicitly_wait(5)  # when selecting elements wait 5 seconds for the element to load before exception
     mu = 7
     var = 2
