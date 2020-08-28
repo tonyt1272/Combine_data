@@ -42,5 +42,5 @@ if __name__ == '__main__':
     # a = next_group(df)
     # next(a)  # returns the next 50 player's combine results
 
-    for year in range(2018, 2021):    # get all years at once
+    for year in range(1987, 2021):    # get all years at once
         df = get_data(year, to_file=True)
