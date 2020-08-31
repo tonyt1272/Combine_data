@@ -8,16 +8,20 @@ from helpers.my_paths import data_path, data_path_merged
 def get_data(year_int=1987, to_file=True):
     data_year = str(year_int)
 
-    get_combine(data_year, to_file=True)
+    # get_combine(data_year, to_file=True)
 
     try:
         df_combine = pd.read_csv(data_path(f'combine\\nfl_combine_{data_year}'))
     except FileNotFoundError:
-        df_combine = pd.read_csv(f'nfl_combine_{data_year}')
+        try:
+            df_combine = pd.read_csv(f'nfl_combine_{data_year}')
+        except FileNotFoundError:
+            df_combine = get_combine(data_year, to_file=True)
 
     df_combine['Name'] = df_combine.apply(switch_name_lnf, axis=1)
     df_combine.drop('player_id', axis=1, inplace=True)
     df_combine.drop('Year', axis=1, inplace=True)
+
     players, columns = get_player_draft(year=year_int)
     df = pd.DataFrame(data=players, columns=columns)
     df['Name'] = df.apply(switch_name_lnf, axis=1)

@@ -1,6 +1,6 @@
 import pandas as pd
 import seaborn as sns
-from helpers.get_data import get_data
+from helpers.get_data import get_data, get_combine
 
 # Formatting for pandas
 desired_width = 325
@@ -37,10 +37,10 @@ if __name__ == '__main__':
     #     print(f'{year} saved successfully')
 
     # ###
-    # df = get_data(1995, to_file=False)  # get combine and draft position (if drafted) and games in NFL, just one year
-    #
-    # a = next_group(df)
-    # next(a)  # returns the next 50 player's combine results
+    df = get_data(2000, to_file=False)  # get combine and draft position (if drafted) and games in NFL, just one year
 
-    for year in range(1987, 2021):    # get all years at once
-        df = get_data(year, to_file=True)
+    a = next_group(df)
+    next(a)  # returns the next 50 player's combine results
+
+    # for year in range(1987, 2021):    # get all years at once
+    #     df = get_data(year, to_file=True)
