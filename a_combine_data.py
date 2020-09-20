@@ -37,10 +37,28 @@ if __name__ == '__main__':
     #     print(f'{year} saved successfully')
 
     # ###
-    df = get_data(2000, to_file=False)  # get combine and draft position (if drafted) and games in NFL, just one year
+    year = 1991
+    df = get_data(year, to_file=False)  # get combine and draft position (if drafted) and games in NFL, just one year
 
     a = next_group(df)
-    next(a)  # returns the next 50 player's combine results
+    # next(a)  # returns the next 50 player's combine results
 
     # for year in range(1987, 2021):    # get all years at once
     #     df = get_data(year, to_file=True)
+
+    # df['POS_x'].unique()
+    df['POS'] = df['POS_x']
+    df.drop(['POS_x', 'POS_y', 'url'],axis=1,inplace=True)
+    df_db = df[(df['POS'] == 'SS')|(df['POS'] == 'FS')|(df['POS'] == 'CB')]
+    df_db['Draft Year'] = year
+
+    # cols = list(df_db.columns)
+    # cols_end = [cols[-1], cols[-2]]
+    # new_cols = cols[:-2] + cols_end
+    new_cols = ['Name', 'Height(in)', 'Weight(lbs)', '40 yard', 'Bench press', 'Vert leap', 'Broad jump',
+                'Shuttle', 'HOF', 'College_x', 'College_y', 'Draft Pos', 'Games', 'Draft Year', 'POS']
+    df_db = df_db[new_cols]
+    print(df_db.info())
+    print(df_db.describe())
+    print(df_db.head(50))
+

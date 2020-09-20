@@ -11,6 +11,12 @@ def get_data(year_int=1987, to_file=True):
     # get_combine(data_year, to_file=True)
 
     try:
+        df_3 = pd.read_csv(data_path_merged(f'nfl_combine_{data_year}_merged_draft'))
+        return df_3
+    except:
+        pass
+
+    try:
         df_combine = pd.read_csv(data_path(f'combine\\nfl_combine_{data_year}'))
     except FileNotFoundError:
         try:
@@ -35,6 +41,7 @@ def get_data(year_int=1987, to_file=True):
     df3.drop(['index', 'Wonderlic', 'Draft Year', '3Cone'], axis=1, inplace=True)
 
     draft_position = df3['Draft Pos']
+
     for i, item in enumerate(draft_position):
         if i > 0:
             try:
@@ -47,8 +54,8 @@ def get_data(year_int=1987, to_file=True):
                 pass
 
     df3.reset_index(inplace=True, drop=True)
-    print(data_year)
-    print(df3.loc[0:50])
+    # print(data_year)
+    # print(df3.loc[0:50])
 
     if to_file:
         file_name = f'nfl_combine_{data_year}_merged_draft'
