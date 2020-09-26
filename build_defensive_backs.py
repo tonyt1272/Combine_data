@@ -73,23 +73,18 @@ def impute_bench(df_b):
 
 if __name__ == '__main__':
     years = range(1987, 2018)
-    corners_all_years = pd.DataFrame(columns=['Name', 'Height(in)', 'Weight(lbs)', '40 yard', 'Bench press',
-                                              'Vert leap', 'Broad jump', 'Shuttle', 'HOF', 'College_x', 'College_y',
-                                              'Draft Pos', 'Games', 'Draft Year', 'POS'])
-
+    corner_columns = ['Name', 'Height(in)', 'Weight(lbs)', '40 yard', 'Bench press', 'Vert leap', 'Broad jump', 'Shuttle',
+                  'HOF', 'College_x', 'College_y', 'Draft Pos', 'Games', 'Draft Year', 'POS']
+    corners_all_years = pd.DataFrame(columns=corner_columns)
     for year in years:
         df = get_data(year, to_file=False)  # get combine and draft position (if drafted) and games in NFL, one year
         # positions = df['POS_x'].unique()
         df['POS'] = df['POS_x']
-
         df.drop(['POS_x', 'POS_y', 'url'], axis=1, inplace=True)
         # df_db = df[(df['POS'] == 'SS') | (df['POS'] == 'FS') | (df['POS'] == 'CB')]
         df_corners = df[df['POS'] == 'CB']
         df_corners['Draft Year'] = year
 
-        new_cols = ['Name', 'Height(in)', 'Weight(lbs)', '40 yard', 'Bench press', 'Vert leap', 'Broad jump',
-                    'Shuttle', 'HOF', 'College_x', 'College_y', 'Draft Pos', 'Games', 'Draft Year', 'POS']
-        df_corners = df_corners[new_cols].copy()
         corners_all_years = corners_all_years.append(df_corners).copy()
 
     corners_all_years['Bench press'] = corners_all_years.apply(impute_bench, axis=1)
@@ -155,8 +150,6 @@ if __name__ == '__main__':
 
     print(corners_data.info())
 
-
-
     shuffle_index = np.arange(0, len(corners_data))
     np.random.shuffle(shuffle_index)
     corners_data['shuffle_index'] = shuffle_index
@@ -167,5 +160,6 @@ if __name__ == '__main__':
 
     features_final = corners_data[['Height(in)', 'Weight(lbs)', '40 yard', 'Bench press', 'Vert leap']].copy()
     targets_final = corners_data[['target']]
+
 
 
