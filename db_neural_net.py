@@ -68,15 +68,15 @@ activation2 = 'relu'
 activation3 = 'softmax'
 activation4 ='elu'
 # model.add(Dense(1024, activation=activation, input_shape=(n_cols,)))
-model.add(Dense(256, activation=activation1, input_shape=(n_cols,)))  # best so far
+model.add(Dense(256, activation=activation4, input_shape=(n_cols,)))  # best so far
 # model.add(Dense(128, activation=activation))
 # model.add(Dense(32, activation=activation))
 # model.add(Dense(64, activation=activation))
-model.add(Dense(16, activation=activation2))  #
+model.add(Dense(16, activation=activation4))  #
 model.add(Dense(4, activation=activation3))
 #
 #                       'adam' 'sgd' optimizer
-model.compile(optimizer='sgd', loss='categorical_crossentropy', metrics=['accuracy'])
+model.compile(optimizer='adam', loss='categorical_crossentropy', metrics=['accuracy'])
 
 filepath = "keras_model_weights\\weights_best_classification.hdf5"
 checkpoint = ModelCheckpoint(filepath, monitor='val_accuracy',  # 'accuracy'
@@ -84,7 +84,7 @@ checkpoint = ModelCheckpoint(filepath, monitor='val_accuracy',  # 'accuracy'
                              save_best_only=True,
                              mode='max')    # min for loss functions, max for optimizations
 
-early_stopping_monitor = EarlyStopping(patience=2000)  # runs without improvement before stopping
+early_stopping_monitor = EarlyStopping(patience=500)  # runs without improvement before stopping
 callbacks_list = [checkpoint, early_stopping_monitor]  # list of tasks to do before next run
 history = model.fit(features, target,
                     validation_split=.3,        # split data into .7 train, .3 test each run
