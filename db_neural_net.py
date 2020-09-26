@@ -26,7 +26,7 @@ from keras.optimizers import Adam, SGD
 Notes:
 1.  There appears to be a change in the player data for years after 1996
 """
-corners_data, features_final, targets_final = get_corners(1996, 2017, min_games=48)
+corners_data, features_final, targets_final = get_corners(1999, 2017, min_games=48)
 a = next_group(corners_data)
 print(corners_data.info())
 print(corners_data.head(51))
